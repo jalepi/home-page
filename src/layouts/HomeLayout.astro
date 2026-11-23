@@ -1,12 +1,15 @@
 ---
+import SocialLinks from "../components/SocialLinks.astro";
+import { socials } from "../lib/social";
 import { site } from "../site";
 import BaseLayout from "./BaseLayout.astro";
 
 // Layout for the home page (`src/pages/index.md`).
 interface Props {
   frontmatter: {
-    greeting: string;
+    heading: string;
     description?: string;
+    skills?: string[];
   };
 }
 
@@ -15,20 +18,30 @@ const { frontmatter } = Astro.props;
 
 <BaseLayout description={frontmatter.description}>
   <section class="mb-10">
-    <p class="text-base-content/70">{frontmatter.greeting}</p>
-    <h1 class="text-4xl font-bold sm:text-5xl">{site.name}</h1>
-    <p class="mt-2 text-xl text-base-content/80">{site.title}</p>
-    <div class="mt-6 flex flex-wrap gap-2">
+    <h1 class="text-4xl font-bold sm:text-5xl">{frontmatter.heading}</h1>
+    <p class="mt-2 text-xl text-base-content/80">
+      {site.title} · {site.tagline}
+    </p>
+    <div class="mt-6 flex flex-wrap items-center gap-2">
       <a class="btn btn-primary" href="/projects/">
         See my work
       </a>
-      <a class="btn btn-outline" href={site.links.linkedin} rel="me noopener">
-        LinkedIn
-      </a>
+      <SocialLinks links={socials} linkClass="btn btn-outline" class="gap-2" />
     </div>
   </section>
 
   <article class="prose max-w-none">
     <slot />
   </article>
+
+  {frontmatter.skills && frontmatter.skills.length > 0 && (
+    <section class="mt-10">
+      <h2 class="mb-4 text-xl font-semibold">Key skills</h2>
+      <ul class="flex flex-wrap gap-2">
+        {frontmatter.skills.map((skill) => (
+          <li class="badge badge-lg badge-outline">{skill}</li>
+        ))}
+      </ul>
+    </section>
+  )}
 </BaseLayout>

@@ -1,21 +1,36 @@
 ---
 layout: ../layouts/HomeLayout.astro
-greeting: Hi, I'm
-description: Personal home page. Software engineer.
+heading: Hi, I'm Jaime
+description: Software engineer who takes products from 0 to 1, from rapid prototyping to architecture built for global scale.
+skills:
+  - 0 → 1 Prototyping
+  - System Architecture
+  - AI/ML Integration
+  - Fullstack Development
+  - Forward-Deployed Engineering
 ---
 
-<!-- Placeholder content. Replace with your own introduction. -->
+I am a builder who thrives in the space between a raw idea and a
+production-ready product. My "superpower" is the **0 → 1 phase**: taking a
+concept, prototyping it rapidly, and architecting it for global scale.
 
-I'm a software engineer who enjoys building reliable, well-crafted software.
-This is a short introduction about who I am, what I work on, and what I care
-about.
+Throughout my career, I've avoided the conventional path in favor of diving
+deep into the "bottom of things." This curiosity has led me from founding the
+technical core of a global digitalization platform at **ANDRITZ**, scaling it
+from a solo project to a product used on every continent, to architecting
+unified UX strategies for state-of-the-art speech-to-text technology at
+**Microsoft/Nuance**.
 
-## What I do
+I am a tool-agnostic engineer. Whether it's C#, TypeScript, or Elixir/Phoenix
+(which I chose for the real-time requirements of my current project,
+[thuum.dev](/projects/thuum/)), I select the best tool for the job. I am an
+early adopter of Machine Learning, having integrated predictive models into
+industrial systems a decade before the current boom.
 
-- Something I'm good at
-- Another thing I'm good at
-- A third thing I enjoy doing
+Today, I balance my professional work with a passion for AI orchestration:
+building AI-agent pipelines for my "slopcast"
+[Story of Things](/projects/story-of-things/) and developing a suite of public
+projects at [thuum.dev](/projects/thuum/).
 
-## Currently
-
-Working on interesting problems. More details coming soon.
+Outside of the IDE, I am a husband, a father, and a lifelong student of
+physics, sound engineering, and philosophy.

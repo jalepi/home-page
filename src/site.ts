@@ -1,20 +1,20 @@
 // Public, site-wide settings. Everything here ends up in the generated HTML,
 // so only put information you are happy to share with the world.
+// Social links live in environment variables, see `src/lib/social.ts`.
 export const site = {
-  // TODO: replace placeholders with real values.
-  name: "Your Name",
+  name: "Jaime Leonardo Pinheiro",
   title: "Software Engineer",
-  description: "Personal home page of Your Name, software engineer.",
-  links: {
-    github: "https://github.com/jalepi",
-    linkedin: "https://www.linkedin.com/in/your-handle",
-  },
+  tagline: "From raw idea to production-ready product.",
+  description:
+    "Jaime Leonardo Pinheiro is a software engineer who takes products from 0 to 1: rapid prototyping, system architecture, and AI/ML integration.",
 } as const;
 
 export const nav = [
   { href: "/", label: "Home" },
   { href: "/experience/", label: "Experience" },
   { href: "/projects/", label: "Projects" },
-  { href: "/blog/", label: "Blog" },
+  // Blog is hidden for now. To publish it, rename `src/pages/_blog/` to
+  // `src/pages/blog/` and uncomment the line below.
+  // { href: "/blog/", label: "Blog" },
   { href: "/contact/", label: "Contact" },
 ] as const;

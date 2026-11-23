@@ -1,4 +1,5 @@
 ---
+import { getSocial, type SocialId } from "../lib/social";
 import BaseLayout from "./BaseLayout.astro";
 
 // Layout for plain Markdown pages in `src/pages/*.md`.
@@ -6,10 +7,13 @@ interface Props {
   frontmatter: {
     title: string;
     description?: string;
+    // Optional "more on <platform>" link, shown only if that social is set.
+    moreOn?: SocialId;
   };
 }
 
 const { frontmatter } = Astro.props;
+const more = frontmatter.moreOn ? getSocial(frontmatter.moreOn) : undefined;
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description}>
@@ -17,4 +21,10 @@ const { frontmatter } = Astro.props;
     <h1>{frontmatter.title}</h1>
     <slot />
   </article>
+
+  {more && (
+    <a class="btn btn-outline mt-10" href={more.url} rel="me noopener">
+      More on {more.label}
+    </a>
+  )}
 </BaseLayout>

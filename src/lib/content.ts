@@ -6,7 +6,10 @@ const isPublished = ({ data }: { data: { draft: boolean } }) =>
 
 export async function getProjects() {
   const entries = await getCollection("projects", isPublished);
-  return entries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  return entries.sort(
+    (a, b) =>
+      a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
+  );
 }
 
 export async function getPosts() {

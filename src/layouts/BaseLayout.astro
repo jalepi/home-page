@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import SocialLinks from "../components/SocialLinks.astro";
+import { socials } from "../lib/social";
 import { nav, site } from "../site";
 
 interface Props {
@@ -90,18 +92,12 @@ const isActive = (href: string) =>
         <p>
           © {new Date().getFullYear()} {site.name}
         </p>
-        <div class="flex gap-4">
-          <a
-            class="link link-hover"
-            href={site.links.linkedin}
-            rel="me noopener"
-          >
-            LinkedIn
-          </a>
-          <a class="link link-hover" href={site.links.github} rel="me noopener">
-            GitHub
-          </a>
-        </div>
+        <SocialLinks
+          links={socials}
+          class="justify-center gap-1"
+          linkClass="btn btn-ghost btn-sm btn-square"
+          display="icon"
+        />
       </div>
     </footer>
   </body>

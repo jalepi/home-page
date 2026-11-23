@@ -1,0 +1,60 @@
+---
+import GitHubIcon from "bootstrap-icons/icons/github.svg";
+import LinkedInIcon from "bootstrap-icons/icons/linkedin.svg";
+import XIcon from "bootstrap-icons/icons/twitter-x.svg";
+import YouTubeIcon from "bootstrap-icons/icons/youtube.svg";
+import type { SocialId, SocialLink } from "../lib/social";
+
+interface Props {
+  links: SocialLink[];
+  class?: string;
+  linkClass?: string;
+  // "label": text only, "icon": icon only (label kept for screen readers),
+  // "both": icon followed by text.
+  display?: "label" | "icon" | "both";
+  iconSize?: number;
+}
+
+// Typed as a Record so every platform in `src/lib/social.ts` must have an icon.
+const iconFor: Record<SocialId, typeof GitHubIcon> = {
+  linkedin: LinkedInIcon,
+  github: GitHubIcon,
+  x: XIcon,
+  youtube: YouTubeIcon,
+};
+
+const {
+  links,
+  class: className,
+  linkClass = "link link-hover",
+  display = "label",
+  iconSize = 20,
+} = Astro.props;
+---
+
+{links.length > 0 && (
+  <ul class:list={["flex flex-wrap gap-x-4 gap-y-2", className]}>
+    {links.map((link) => {
+      const Icon = iconFor[link.id];
+      return (
+        <li>
+          <a
+            class={linkClass}
+            href={link.url}
+            rel="me noopener"
+            title={display === "icon" ? link.label : undefined}
+          >
+            {display !== "label" && (
+              <Icon width={iconSize} height={iconSize} aria-hidden="true" />
+            )}
+            {display === "icon" ? (
+              <span class="sr-only">{link.label}</span>
+            ) : (
+              link.label
+            )}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+)}

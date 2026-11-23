@@ -28,6 +28,13 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
+        env:
+          # Optional repository secrets (Settings > Secrets and variables >
+          # Actions > Secrets). A link only appears on the site if it is set.
+          SOCIAL_LINKEDIN: ${{ secrets.SOCIAL_LINKEDIN }}
+          SOCIAL_GITHUB: ${{ secrets.SOCIAL_GITHUB }}
+          SOCIAL_X: ${{ secrets.SOCIAL_X }}
+          SOCIAL_YOUTUBE: ${{ secrets.SOCIAL_YOUTUBE }}
 
       - uses: actions/upload-pages-artifact@v5
         with:

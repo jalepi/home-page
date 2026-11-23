@@ -1,5 +1,6 @@
 ---
 import { render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getProjects } from "../../lib/content";
 
@@ -36,6 +37,16 @@ const { Content } = await render(project);
           </a>
         )}
       </div>
+    )}
+
+    {project.data.cover && (
+      <Image
+        src={project.data.cover.src}
+        alt={project.data.cover.alt}
+        widths={[600, 896, 1280]}
+        sizes="(min-width: 896px) 896px, 100vw"
+        class="not-prose mx-auto mb-8 h-auto max-h-[28rem] w-auto max-w-full rounded-box border border-base-300"
+      />
     )}
 
     <Content />

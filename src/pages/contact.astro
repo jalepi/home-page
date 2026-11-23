@@ -1,24 +1,23 @@
 ---
+import SocialLinks from "../components/SocialLinks.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { site } from "../site";
+import { socials } from "../lib/social";
 ---
 
 <BaseLayout title="Contact" description="How to get in touch.">
   <article class="prose max-w-none">
     <h1>Contact</h1>
-    <p>
-      The best way to reach me is through
-      <a href={site.links.linkedin} rel="me noopener">
-        LinkedIn
-      </a>
-      .
-    </p>
-    <p>
-      You can also find my code on
-      <a href={site.links.github} rel="me noopener">
-        GitHub
-      </a>
-      .
-    </p>
+    {socials.length > 0 ? (
+      <p>You can find me on:</p>
+    ) : (
+      <p>Contact details are coming soon.</p>
+    )}
   </article>
+
+  <SocialLinks
+    links={socials}
+    linkClass="btn btn-outline"
+    class="mt-4 gap-2"
+    display="both"
+  />
 </BaseLayout>
