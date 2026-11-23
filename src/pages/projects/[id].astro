@@ -1,0 +1,43 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getProjects } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} description={project.data.description}>
+  <article class="prose max-w-none">
+    <p>
+      <a href="/projects/">← All projects</a>
+    </p>
+    <h1>{project.data.title}</h1>
+    <p class="lead">{project.data.description}</p>
+
+    {(project.data.url || project.data.repo) && (
+      <div class="not-prose mb-6 flex flex-wrap gap-2">
+        {project.data.url && (
+          <a class="btn btn-sm btn-primary" href={project.data.url}>
+            Visit
+          </a>
+        )}
+        {project.data.repo && (
+          <a class="btn btn-sm btn-outline" href={project.data.repo}>
+            Source
+          </a>
+        )}
+      </div>
+    )}
+
+    <Content />
+  </article>
+</BaseLayout>

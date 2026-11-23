@@ -1,0 +1,108 @@
+---
+import "../styles/global.css";
+import { nav, site } from "../site";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const pageTitle = title
+  ? `${title} · ${site.name}`
+  : `${site.name} · ${site.title}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const currentPath = Astro.url.pathname;
+
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+  </head>
+  <body class="flex min-h-screen flex-col bg-base-100 text-base-content">
+    <header class="border-b border-base-300">
+      <nav class="navbar mx-auto max-w-4xl px-4" aria-label="Main">
+        <div class="flex-1">
+          <a href="/" class="text-lg font-semibold">
+            {site.name}
+          </a>
+        </div>
+
+        <ul class="menu menu-horizontal hidden gap-1 sm:flex">
+          {nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={{ "menu-active": isActive(item.href) }}
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <details class="dropdown dropdown-end sm:hidden">
+          <summary class="btn btn-ghost btn-sm" aria-label="Open menu">
+            Menu
+          </summary>
+          <ul class="menu dropdown-content z-10 mt-2 w-48 rounded-box bg-base-200 p-2 shadow">
+            {nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={{ "menu-active": isActive(item.href) }}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      </nav>
+    </header>
+
+    <main class="mx-auto w-full max-w-4xl flex-1 px-4 py-10">
+      <slot />
+    </main>
+
+    <footer class="border-t border-base-300">
+      <div class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm sm:flex-row">
+        <p>
+          © {new Date().getFullYear()} {site.name}
+        </p>
+        <div class="flex gap-4">
+          <a
+            class="link link-hover"
+            href={site.links.linkedin}
+            rel="me noopener"
+          >
+            LinkedIn
+          </a>
+          <a class="link link-hover" href={site.links.github} rel="me noopener">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

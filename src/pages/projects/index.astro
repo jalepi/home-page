@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getProjects } from "../../lib/content";
+
+const projects = await getProjects();
+---
+
+<BaseLayout title="Projects" description="Selected projects and work.">
+  <h1 class="mb-8 text-3xl font-bold">Projects</h1>
+
+  {projects.length === 0 ? (
+    <p>Nothing here yet.</p>
+  ) : (
+    <ul class="grid gap-4 sm:grid-cols-2">
+      {projects.map((project) => (
+        <li class="card border border-base-300 bg-base-100">
+          <div class="card-body">
+            <h2 class="card-title">
+              <a class="link link-hover" href={`/projects/${project.id}/`}>
+                {project.data.title}
+              </a>
+            </h2>
+            <p>{project.data.description}</p>
+            {project.data.tags.length > 0 && (
+              <div class="card-actions">
+                {project.data.tags.map((tag) => (
+                  <span class="badge badge-outline">{tag}</span>
+                ))}
+              </div>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>
